@@ -4,23 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>수료요건 체크리스트 | 조선대학교 일반대학원</title>
-<meta name="description" content="조선대학교 일반대학원 수료요건·졸업요건 체크리스트. 학과와 학위과정을 선택하면 나에게 해당하는 요건을 확인할 수 있습니다.">
+<meta name="description" content="조선대학교 일반대학원 수료요건·졸업요건 체크리스트. Graduation requirements checklist for Chosun University General Graduate School.">
 <meta name="theme-color" content="#12306b">
 <meta property="og:type" content="website">
-<meta property="og:title" content="수료요건 체크리스트 | 조선대학교 일반대학원">
-<meta property="og:description" content="학과와 학위과정을 선택하면 나에게 해당하는 수료요건과 졸업요건을 확인할 수 있습니다.">
+<meta property="og:title" content="수료요건 체크리스트 | Graduation Requirements Checklist">
+<meta property="og:description" content="조선대학교 일반대학원 · Chosun University General Graduate School">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
 <style>
 :root{--navy:#12306b;--blue:#1f5fbf;--sky:#eaf2ff;--line:#d5deee;--ink:#1c2433;--mute:#667088;--ok:#17803d;--warn:#b45309;--warnbg:#fff6e5;--red:#c0262d}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:#f5f8fd;line-height:1.6}
+body{margin:0;font-family:"Pretendard","Noto Sans KR","Malgun Gothic",-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#f5f8fd;line-height:1.6}
 .wrap{max-width:860px;margin:0 auto;padding:0 16px 60px}
 header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:36px 16px 70px}
-header .in{max-width:860px;margin:0 auto}
+header .in{max-width:860px;margin:0 auto;position:relative}
 header small{opacity:.85;font-size:14px}
-header h1{margin:6px 0 8px;font-size:clamp(24px,5vw,34px);line-height:1.3}
+header h1{margin:6px 0 8px;font-size:clamp(24px,5vw,34px);line-height:1.3;padding-right:150px}
 header p{margin:0;opacity:.9;font-size:14.5px}
 .basis{display:inline-block;margin-top:10px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:3px 12px;font-size:13.5px;font-weight:700}
+.lang{position:absolute;top:0;right:0;display:flex;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:99px;padding:3px}
+.lang button{border:0;background:transparent;color:#fff;font-weight:700;font-size:13.5px;padding:6px 13px;border-radius:99px;cursor:pointer;font-family:inherit}
+.lang button.on{background:#fff;color:var(--navy)}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px;box-shadow:0 2px 8px rgba(18,48,107,.05)}
 .top{margin-top:-46px}
 .card h2{margin:0 0 12px;font-size:18px;color:var(--navy);display:flex;align-items:center;gap:8px}
@@ -101,12 +104,14 @@ button.act.ghost,a.act.ghost{background:#fff;color:var(--blue);border:1.5px soli
 .privacy{font-size:13px;color:var(--mute);margin-top:10px}
 footer{text-align:center;font-size:13px;color:var(--mute);margin-top:26px}
 .tel{font-size:22px;font-weight:800;color:var(--navy)}
+@media(max-width:520px){header h1{padding-right:0;margin-top:34px}}
 @media print{
  body{background:#fff}header{background:#fff;color:#000;padding:10px 0}.basis{border-color:#000;color:#000;background:none}
- .no-print,#stepDept,#stepCourse,#stepTerm{display:none!important}
+ .no-print,.lang,#stepDept,#stepCourse,#stepTerm{display:none!important}
  #stepList .body{display:block!important}
  .card{box-shadow:none;border:0;padding:6px 0;margin-top:8px}.top{margin-top:0}
  .item,.box,details{break-inside:avoid}
+ header h1{padding-right:0;margin-top:0}
 }
 </style>
 </head>
@@ -114,9 +119,13 @@ footer{text-align:center;font-size:13px;color:var(--mute);margin-top:26px}
 
 <header>
  <div class="in">
-  <small>조선대학교 일반대학원</small>
-  <h1>수료요건 체크리스트</h1>
-  <p>학과와 학위과정을 선택하면 <b>나에게 해당하는 수료요건과 졸업요건</b>을 확인할 수 있습니다.</p>
+  <div class="lang no-print" id="langBox" role="group" aria-label="Language">
+   <button id="lgKo" onclick="setLang('ko')">한국어</button>
+   <button id="lgEn" onclick="setLang('en')">English</button>
+  </div>
+  <small id="hSmall"></small>
+  <h1 id="hTitle"></h1>
+  <p id="hDesc"></p>
   <span class="basis" id="basis"></span>
  </div>
 </header>
@@ -124,142 +133,372 @@ footer{text-align:center;font-size:13px;color:var(--mute);margin-top:26px}
 <div class="wrap">
 
  <section class="card top">
-  <h2>📌 먼저 확인하세요</h2>
+  <h2 id="ttlTop"></h2>
   <div class="note warn" style="margin-top:0" id="topNote"></div>
  </section>
 
  <section class="card step" id="stepDept">
-  <h2 class="hd" onclick="goStep(1)"><span class="num">1</span>내 학과를 검색하세요<span class="sum" id="sum1"></span><span class="chev">▾</span></h2>
+  <h2 class="hd" onclick="goStep(1)"><span class="num">1</span><span id="ttl1"></span><span class="sum" id="sum1"></span><span class="chev">▾</span></h2>
   <div class="body" id="deptBody"></div>
  </section>
 
  <section class="card step" id="stepCourse">
-  <h2 class="hd" onclick="goStep(2)"><span class="num">2</span>학위과정을 선택하세요<span class="sum" id="sum2"></span><span class="chev">▾</span></h2>
+  <h2 class="hd" onclick="goStep(2)"><span class="num">2</span><span id="ttl2"></span><span class="sum" id="sum2"></span><span class="chev">▾</span></h2>
   <div class="body" id="courseBody"></div>
  </section>
 
  <section class="card step" id="stepTerm">
-  <h2 class="hd" onclick="goStep(3)"><span class="num">3</span>정규 등록 학기 · 보충과목<span class="sum" id="sum3"></span><span class="chev">▾</span></h2>
+  <h2 class="hd" onclick="goStep(3)"><span class="num">3</span><span id="ttl3"></span><span class="sum" id="sum3"></span><span class="chev">▾</span></h2>
   <div class="body" id="termBody"></div>
  </section>
 
  <section class="card step" id="stepList">
-  <h2 class="hd" onclick="goStep(4)"><span class="num">4</span>나의 수료요건 · 졸업요건<span class="sum" id="sum4"></span><span class="chev">▾</span></h2>
+  <h2 class="hd" onclick="goStep(4)"><span class="num">4</span><span id="ttl4"></span><span class="sum" id="sum4"></span><span class="chev">▾</span></h2>
   <div class="body">
    <div id="summary" style="font-size:14.5px;color:var(--mute);margin-bottom:8px"></div>
-   <div class="sec" style="margin-top:6px">🎯 수료요건</div>
+   <div class="sec" style="margin-top:6px" id="secA"></div>
    <div class="progtxt"><span id="progLabel"></span><b id="progPct">0%</b></div>
    <div class="prog"><i id="progBar"></i></div>
    <div id="listBox" style="margin-top:12px"></div>
-   <div class="sec">🎓 졸업요건 (수료 후)</div>
+   <div class="sec" id="secB"></div>
    <div id="gradBox"></div>
-   <div class="sec">학점 관련 한도</div>
+   <div class="sec" id="secC"></div>
    <div class="lim" id="limBox"></div>
-   <p class="privacy">🔒 체크·입력한 내용은 이 기기의 브라우저에만 저장되며 서버로 전송되지 않습니다. (학과·과정 선택은 다시 열면 처음부터 시작합니다)</p>
+   <p class="privacy" id="privacy"></p>
    <div class="no-print">
-    <button class="act" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
-    <button class="act ghost" onclick="resetSel()">학과·과정 다시 선택</button>
-    <button class="act ghost" onclick="resetAll()">모든 기록 지우기</button>
+    <button class="act" id="btnPrint" onclick="window.print()"></button>
+    <button class="act ghost" id="btnSel" onclick="resetSel()"></button>
+    <button class="act ghost" id="btnAll" onclick="resetAll()"></button>
    </div>
   </div>
  </section>
 
  <section class="card" id="guideCard">
-  <h2>📖 자세한 안내</h2>
+  <h2 id="ttlGuide"></h2>
   <div id="guideBox"></div>
  </section>
 
  <section class="card" id="contactCard">
-  <h2>☎ 문의처</h2>
+  <h2 id="ttlContact"></h2>
   <table id="contactTbl"></table>
  </section>
 
- <footer>
-  ※ 본 페이지는 편의를 위한 요약 안내입니다. <b>최종 기준은 대학원 공식 수료요건 체크리스트와 홈페이지 공지</b>이며,
-  불확실한 사항은 대학원 교학팀에 문의하세요.
- </footer>
+ <footer id="footer"></footer>
 </div>
 
 <!-- =========================================================
-     ★ 매년 이 CONFIG 블록만 수정하면 됩니다 ★
+     ★ 매년 이 CONFIG 블록만 수정하면 됩니다 (학과·학점·기준일·전화) ★
      ========================================================= -->
 <script id="cfg">
 const CONFIG = {
   basisDate: "2026. 3. 1.",            // 수료요건 기준일
-  deptYear: "2027학년도 전기 모집학과 기준",
+  deptYear: {ko:"2027학년도 전기 모집학과 기준", en:"based on the departments recruiting for the 2027 Spring (first-half) intake"},
   storageKey: "gradcheck-2026-2",       // 해마다 값을 바꾸면 이전 입력 기록이 초기화됨
+  langKey: "gradcheck-lang",
   gpaMin: 3.0, gpaMax: 4.5,
   exempt: {total:33, after:9},          // 석사 논문면제과정: 총 33학점 이상 + 전환 후 9학점 이상 (둘 다 충족)
   tel: "062-608-5038",
-  topNotes: [
-    "이 체크리스트는 <b>일반대학원</b> 기준입니다.",
-    "연구윤리와 논문작성법은 <b>2015. 3. 이후 입학자(편입학·재입학 포함) 모두</b> 이수해야 합니다.",
-    "보충과목 학점은 이수학점과 <b>별도</b>로 이수해야 합니다."
-  ],
+  topik6: ["국어국문학과 (야간수업 병행)","국어교육학과","문예창작학과"],   // 외국인 학생 TOPIK 6급 이상 요구 학과 (depts의 학과명과 동일하게)
+  libTel: "062-230-7541",
+  homepage: "https://grad.chosun.ac.kr",
 
   courses: {
-    master: {label:"석사과정", credits:24, thesis:"논문지도: 석사 마지막 학기 1번 이수", examSubjects:3, limitSame:9,  limitOther:"12학점 이내", supp:"학부 개설과목 6학점 추가 이수", suppN:6},
-    doctor: {label:"박사과정", credits:36, thesis:"논문지도: 3학기, 4학기 2번 이수",      examSubjects:4, limitSame:12, limitOther:"18학점 이내", supp:"학부 개설과목 또는 대학원 개설과목 9학점 추가 이수", suppN:9},
-    integ:  {label:"석·박사통합과정", credits:60, thesis:"논문지도: 3학기, 4학기 2번 이수",  examSubjects:4, limitSame:18, limitOther:"30학점 이내", supp:"학부 개설과목 또는 대학원 개설과목 9학점 추가 이수", suppN:9}
+    master: {credits:24, examSubjects:3, limitSame:9,  limitOtherN:12, suppN:6},
+    doctor: {credits:36, examSubjects:4, limitSame:12, limitOtherN:18, suppN:9},
+    integ:  {credits:60, examSubjects:4, limitSame:18, limitOtherN:30, suppN:9}
   },
   terms: {
-    master: [{id:"base",label:"기본",n:4},{id:"short",label:"학·석사연계 학기단축자",n:3}],
-    doctor: [{id:"base",label:"기본",n:4}],
-    integ:  [{id:"base",label:"기본",n:8},{id:"short",label:"석·박사통합 학기단축자",n:7},{id:"short2",label:"학·석사연계 + 석·박사통합 학기단축자",n:6}]
+    master: [{id:"base",n:4},{id:"short",n:3}],
+    doctor: [{id:"base",n:4}],
+    integ:  [{id:"base",n:8},{id:"short",n:7},{id:"short2",n:6}]
   },
 
-  // 학과: [학과명, 운영 과정(m=석사 d=박사 i=통합), 석사 논문면제 시행(1)]  ← 2027학년도 전기 모집학과 PDF 기준
+  // 학과: [한글명, 운영 과정(m=석사 d=박사 i=통합), 석사 논문면제 시행(1/0), 영문명]  ← 2027학년도 전기 모집학과 PDF 기준
+  // ※ 영문 학과명은 비공식 번역입니다. 대학 공식 영문명이 있으면 4번째 값을 교체하세요.
   depts: [
-    ["경영학과","mdi",1],["경제학과","mdi",0],["고전번역학과","mdi",0],["공공행정학과","md",1],["교육학과","mdi",1],
-    ["국어교육학과","mdi",1],["국어국문학과 (야간수업 병행)","mdi",1],["국제티앤커피문화학과","mdi",1],["군사학과","d",0],["무역학과","mdi",1],
-    ["문예창작학과","mdi",1],["문화학과","mdi",1],["미디어커뮤니케이션학과","mdi",0],["미학미술사학과","mdi",0],["법학과","mdi",1],
-    ["사학과","mdi",1],["사회복지학과","md",1],["사회적경제학과","m",1],["상담심리학과","md",0],["소방안전방재학과","mdi",1],
-    ["수화언어학과","mdi",1],["언어치료학과","mdi",0],["영어교육학과","d",0],["영어영문학과","mdi",1],["외국어로서의한국어교육학과 (야간수업 병행)","mdi",1],
-    ["융복합창업학과","mdi",1],["정치외교학과","mdi",0],["중독재활복지학과","d",0],["철학과","mdi",1],["특수교육학과","mdi",1],
-    ["기후위기·환경융합학과","mdi",0],["라이프케어융합학과","mdi",0],
-    ["간호학과","mdi",0],["과학교육학과","mdi",0],["글로벌바이오융합학과","mdi",0],["물리학과","mdi",0],["미술심리치료학과","mdi",1],
-    ["보건학과","d",0],["보완대체의학과","d",0],["식품영양학과","mdi",0],["식품영양학과(임상영양전공)","mdi",0],["약학과","mdi",0],
-    ["컴퓨터통계학과","mdi",1],["탄소소재학과","mdi",0],["화학과","mdi",0],["바이오메디융합학과","mdi",0],["IT융합학과","mdi",0],
-    ["건축공학과","mdi",0],["과학기술융합학과","md",1],["광기술공학과","mdi",0],["기계공학과","mdi",1],["데이터사이언스학과","mdi",0],
-    ["반도체융합학과","mdi",0],["산업공학과","mdi",0],
-    ["선박해양공학과","mdi",0],["스마트이동체융합시스템공학과","mdi",1],["신소재공학과","mdi",0],["용접·접합과학공학과","mdi",0],["원자력공학과","mdi",1],
-    ["원자력발전학과","md",1],["인공지능공학과","mdi",0],["전기공학과","mdi",0],["전자공학과","mdi",0],["정보통신공학과","mdi",1],
-    ["첨단에너지자원공학과","mdi",0],["컴퓨터공학과","mdi",0],["토목공학과","mdi",1],["항공우주공학과","mdi",1],["화학공학과","mdi",0],
-    ["환경공학과","mdi",1],["에이지테크융합학과","mdi",0],
-    ["디자인학과","mdi",1],["만화애니메이션학과","m",1],["미술학과","mdi",0],["예술학과","d",0],["음악학과","m",1],
-    ["창의공학디자인융합학과","mdi",1],["체육학과","mdi",1],
-    ["의과학과","mdi",1],["의학과","mdi",0],["치의생명공학과","mdi",0],["치의학과","mdi",0]
-  ],
-
-  contacts: [
-    {name:"대학원 교학팀 (수료요건·종합시험 등)", tel:"062-608-5038"},
-    {name:"중앙도서관 학술정보운영팀", tel:"062-230-7541"}
-  ],
-  homepage: "https://grad.chosun.ac.kr"
+    ["경영학과","mdi",1,"Business Administration"],["경제학과","mdi",0,"Economics"],["고전번역학과","mdi",0,"Classical Translation"],
+    ["공공행정학과","md",1,"Public Administration"],["교육학과","mdi",1,"Education"],["국어교육학과","mdi",1,"Korean Language Education"],
+    ["국어국문학과 (야간수업 병행)","mdi",1,"Korean Language and Literature (evening classes available)"],["국제티앤커피문화학과","mdi",1,"International Tea and Coffee Culture"],["군사학과","d",0,"Military Science"],
+    ["무역학과","mdi",1,"International Trade"],["문예창작학과","mdi",1,"Creative Writing"],["문화학과","mdi",1,"Cultural Studies"],
+    ["미디어커뮤니케이션학과","mdi",0,"Media Communication"],["미학미술사학과","mdi",0,"Aesthetics and Art History"],["법학과","mdi",1,"Law"],
+    ["사학과","mdi",1,"History"],["사회복지학과","md",1,"Social Welfare"],["사회적경제학과","m",1,"Social Economy"],
+    ["상담심리학과","md",0,"Counseling Psychology"],["소방안전방재학과","mdi",1,"Fire Safety and Disaster Prevention"],["수화언어학과","mdi",1,"Sign Language"],
+    ["언어치료학과","mdi",0,"Speech-Language Therapy"],["영어교육학과","d",0,"English Education"],["영어영문학과","mdi",1,"English Language and Literature"],
+    ["외국어로서의한국어교육학과 (야간수업 병행)","mdi",1,"Korean as a Foreign Language Education (evening classes available)"],["융복합창업학과","mdi",1,"Convergence Entrepreneurship"],["정치외교학과","mdi",0,"Political Science and Diplomacy"],
+    ["중독재활복지학과","d",0,"Addiction Rehabilitation and Welfare"],["철학과","mdi",1,"Philosophy"],["특수교육학과","mdi",1,"Special Education"],
+    ["기후위기·환경융합학과","mdi",0,"Climate Crisis and Environment Convergence"],["라이프케어융합학과","mdi",0,"Life Care Convergence"],["간호학과","mdi",0,"Nursing"],
+    ["과학교육학과","mdi",0,"Science Education"],["글로벌바이오융합학과","mdi",0,"Global Bio Convergence"],["물리학과","mdi",0,"Physics"],
+    ["미술심리치료학과","mdi",1,"Art Psychotherapy"],["보건학과","d",0,"Public Health"],["보완대체의학과","d",0,"Complementary and Alternative Medicine"],
+    ["식품영양학과","mdi",0,"Food and Nutrition"],["식품영양학과(임상영양전공)","mdi",0,"Food and Nutrition (Clinical Nutrition major)"],["약학과","mdi",0,"Pharmacy"],
+    ["컴퓨터통계학과","mdi",1,"Computer Statistics"],["탄소소재학과","mdi",0,"Carbon Materials"],["화학과","mdi",0,"Chemistry"],
+    ["바이오메디융합학과","mdi",0,"Biomedical Convergence"],["IT융합학과","mdi",0,"IT Convergence"],["건축공학과","mdi",0,"Architectural Engineering"],
+    ["과학기술융합학과","md",1,"Science and Technology Convergence"],["광기술공학과","mdi",0,"Photonics Engineering"],["기계공학과","mdi",1,"Mechanical Engineering"],
+    ["데이터사이언스학과","mdi",0,"Data Science"],["반도체융합학과","mdi",0,"Semiconductor Convergence"],["산업공학과","mdi",0,"Industrial Engineering"],
+    ["선박해양공학과","mdi",0,"Naval Architecture and Ocean Engineering"],["스마트이동체융합시스템공학과","mdi",1,"Smart Mobility Convergence Systems Engineering"],["신소재공학과","mdi",0,"Advanced Materials Engineering"],
+    ["용접·접합과학공학과","mdi",0,"Welding and Joining Science Engineering"],["원자력공학과","mdi",1,"Nuclear Engineering"],["원자력발전학과","md",1,"Nuclear Power Generation"],
+    ["인공지능공학과","mdi",0,"Artificial Intelligence Engineering"],["전기공학과","mdi",0,"Electrical Engineering"],["전자공학과","mdi",0,"Electronic Engineering"],
+    ["정보통신공학과","mdi",1,"Information and Communication Engineering"],["첨단에너지자원공학과","mdi",0,"Advanced Energy and Resources Engineering"],["컴퓨터공학과","mdi",0,"Computer Engineering"],
+    ["토목공학과","mdi",1,"Civil Engineering"],["항공우주공학과","mdi",1,"Aerospace Engineering"],["화학공학과","mdi",0,"Chemical Engineering"],
+    ["환경공학과","mdi",1,"Environmental Engineering"],["에이지테크융합학과","mdi",0,"AgeTech Convergence"],["디자인학과","mdi",1,"Design"],
+    ["만화애니메이션학과","m",1,"Cartoon and Animation"],["미술학과","mdi",0,"Fine Arts"],["예술학과","d",0,"Arts"],
+    ["음악학과","m",1,"Music"],["창의공학디자인융합학과","mdi",1,"Creative Engineering Design Convergence"],["체육학과","mdi",1,"Physical Education"],
+    ["의과학과","mdi",1,"Medical Science"],["의학과","mdi",0,"Medicine"],["치의생명공학과","mdi",0,"Dental Bioengineering"],
+    ["치의학과","mdi",0,"Dentistry"]
+  ]
 };
 </script>
 
 <script>
 const $ = id => document.getElementById(id);
 const C = CONFIG;
+
+/* 외국인 학생 한국어능력 기준 (원문 그대로) */
+const TOPIK = {
+ ko:(six)=>`<b>외국인 학생의 경우</b> — 한국어능력시험(TOPIK 및 본교 국제협력팀 시행 CSU-TOPIK) 성적 취득 기준<br>① 최근 2년(매학기 개시일) 이내에 TOPIK(한국어능력시험) <b>${six?"6급":"4급"} 이상</b>${six?"":" (단, 국어국문학과, 국어교육학과, 문예창작학과의 경우 6급 이상 취득자)"}<br>② 대학원 통합교과목 한국어 과목 이수(Pass)`,
+ en:(six)=>`<b>For international students</b> — Korean-language proficiency (TOPIK, or CSU-TOPIK administered by the university's International Cooperation Team)<br>① A <b>TOPIK Level ${six?"6":"4"} or higher</b> obtained within the last 2 years (counted from the start date of each semester)${six?"":" (Level 6 or higher for the Department of Korean Language and Literature, Korean Language Education, and Creative Writing)"}<br>② Completion (Pass) of the Korean-language course in the Graduate School's integrated curriculum`
+};
+const isSix = () => S.dept!=null && C.topik6.includes(D[S.dept].n);
+
+
+/* ====================== 문구 (한국어 / English) ====================== */
+const I18N = {
+ko:{
+  htmlLang:"ko", docTitle:"수료요건 체크리스트 | 조선대학교 일반대학원",
+  hSmall:"조선대학교 일반대학원", hTitle:"수료요건 체크리스트",
+  hDesc:"학과와 학위과정을 선택하면 <b>나에게 해당하는 수료요건과 졸업요건</b>을 확인할 수 있습니다.",
+  basis:d=>"수료요건 기준일 "+d,
+  ttlTop:"📌 먼저 확인하세요",
+  topNotes:[
+    "이 체크리스트는 <b>일반대학원</b> 기준입니다.",
+    "연구윤리와 논문작성법은 <b>2015. 3. 이후 입학자(편입학·재입학 포함) 모두</b> 이수해야 합니다.",
+    "보충과목 학점은 이수학점과 <b>별도</b>로 이수해야 합니다.",
+    "<b>외국인 학생</b>은 외국어시험 항목과 '자세한 안내'의 <b>한국어능력 기준(TOPIK)</b>을 확인하세요."
+  ],
+  ttl1:"내 학과를 검색하세요", ttl2:"학위과정을 선택하세요", ttl3:"정규 등록 학기 · 보충과목", ttl4:"나의 수료요건 · 졸업요건",
+  searchPh:"학과명을 입력하세요 (예: 사회복지)", searchHint:"학과명 일부만 입력해도 됩니다.",
+  noResult:"검색 결과가 없습니다. 아래 <b>\"내 학과가 검색되지 않아요\"</b>를 눌러 주세요.",
+  notFoundBtn:"내 학과가 검색되지 않아요",
+  notFoundMsg:y=>`${y} 학과 목록에서 찾을 수 없는 학과입니다.<br><b>대학원 교학팀</b>에 문의해 주세요.`,
+  searchAgain:"다시 검색하기", change:"변경",
+  runs:s=>`${s} 과정 운영`,
+  c_master:"석사과정", c_doctor:"박사과정", c_integ:"석·박사통합과정",
+  cs_master:"석사", cs_doctor:"박사", cs_integ:"통합",
+  creditSmall:(c,n,m)=>c==="master"?"24학점 이수 (논문과정)":n+"학점 이수",
+  onlyOne:(d,c)=>`${d}는 <b>${c}</b>만 운영합니다.`,
+  exLabel:"논문면제과정으로 전환했습니다 (전환 예정 포함)", exSub:"선택하지 않으면 <b>논문과정</b> 기준으로 안내합니다.",
+  next:"다음 ▶",
+  term_base:"기본", term_short_master:"학·석사연계 학기단축자", term_short_integ:"석·박사통합 학기단축자", term_short2:"학·석사연계 + 석·박사통합 학기단축자",
+  termTitle:"정규 등록 학기 (단축 여부)",
+  termReq:n=>`${n}학기 등록 필요`,
+  termReqEx:(n,t)=>`${n}학기 등록 · 총 ${t}학점 이수 (논문면제 + 학·석사연계)`,
+  termFixed:(c,n)=>`${c}은 선택 없이 <b>${n}학기</b> 등록이 필요합니다.`,
+  suppTitle:"보충과목 이수대상자",
+  suppLabel:"보충과목 이수 대상자입니다",
+  suppDesc:s=>`대상자만 선택하세요. 선택하면 체크리스트에 보충과목 항목이 추가됩니다. 수강신청 화면 접속 시 팝업창으로 안내됩니다. (${s})`,
+  supp_master:"학부 개설과목 6학점 추가 이수", supp_other:"학부 개설과목 또는 대학원 개설과목 9학점 추가 이수",
+  nextCheck:"다음 ▶ 내 수료요건 확인하기",
+  secA:"🎯 수료요건", secB:"🎓 졸업요건 (수료 후)", secC:"학점 관련 한도",
+  progAll:"🎉 수료요건을 모두 충족했습니다!", progN:(a,b)=>`${a} / ${b} 충족`,
+  exTag:" · 논문면제과정", thTag:" · 논문과정",
+  req:"필수", cond:"해당자",
+  i_terms:(n,lab)=>`정규 등록 ${n}학기 충족`+(lab?` (${lab})`:""), i_terms_d:"정규 학기로 등록을 마친 학기 수입니다.", i_terms_l:"등록한 학기 수", u_sem:"학기", u_cr:"학점",
+  i_credExT:t=>`이수학점 ${t}학점 (논문면제과정)`,
+  i_cred:(c,m)=>`이수학점 ${c}학점 취득`+(m?" (논문과정)":""), i_cred_d:"현재까지 취득한 학점을 입력하면 자동으로 확인됩니다. (보충과목 학점 제외)", i_cred_l:"현재 취득 학점",
+  i_gpa:(min,max)=>`평점평균 ${min} 이상 충족 (${max} 만점)`, i_gpa_d:"현재 평점평균을 입력하면 자동으로 확인됩니다.", i_gpa_l:"현재 평점평균",
+  i_eth:"연구윤리와 논문작성법 이수", i_eth_d:"2015. 3. 이후 입학자(편입학·재입학 포함) 모두 해당. 학점 미포함(P/N 과목)이며 수료요건입니다.",
+  i_thesis_master:"논문지도: 석사 마지막 학기 1번 이수", i_thesis_dr:"논문지도: 3학기, 4학기 2번 이수",
+  i_thesis_d:"이수 대상 학기에 대학원에서 일괄 수강신청합니다. 학점 미포함 과목이며 수료요건입니다.",
+  i_for:"외국어시험 합격 (또는 면제 인정)", i_for_d:six=>`3월·9월 시행. 합격기준 60점 이상(100점 만점). 면제 조건은 아래 '자세한 안내'를 확인하세요.<div class="note" style="margin-top:8px">${TOPIK.ko(six)}</div>`,
+  i_supp:n=>`보충과목 ${n}학점 추가 이수`, i_supp_d:s=>`${s}. 이수학점과 <b>별도</b>로 이수합니다.`, i_supp_l:"보충과목 이수 학점",
+  ex_d:(t,a)=>`두 조건을 <b>모두</b> 충족해야 합니다. ① 총 ${t}학점 이상 ② 논문면제 전환 시점부터 ${a}학점 이상. 총 학점이 ${t}학점을 넘어도 전환 후 ${a}학점이 모자라면 수료할 수 없습니다. (보충과목 학점 제외)<br>※ 아직 전환 전이라면 '전환 시점 취득학점'에 <b>현재 학점</b>을 그대로 입력하세요.`,
+  ex_l1:"현재 총 취득학점", ex_l2:"전환 시점 취득학점",
+  ex_bad:"전환 시점 취득학점이 현재 취득학점보다 클 수 없습니다. 다시 확인해 주세요.",
+  ex_lackAfter:n=>`총 학점은 충족했지만 전환 후 학점이 <b>${n}학점</b> 부족합니다.`,
+  ex_lackTotal:n=>`전환 후 학점은 충족했지만 총 학점이 <b>${n}학점</b> 부족합니다.`,
+  ex_total:(c,t)=>`총 ${t}학점 이상 (현재 ${c} / ${t})`, ex_after:(a,t)=>`전환 후 ${t}학점 이상 (현재 ${a} / ${t})`,
+  gpaOver:m=>`${m} 만점 기준으로 입력해 주세요.`, stdPrefix:"기준 ",
+  noThesisNote:"논문면제과정은 <b>논문지도 과목</b>을 이수하지 않으므로 항목에서 제외했습니다.",
+  g1:"① 종합시험 응시 자격 (4월·10월 시행)",
+  g_cred:(c,cur)=>`${c}학점 취득(예정)자`+(cur!==null?` (입력 ${cur}학점)`:""), g_gpa:m=>`평점평균 ${m} 이상`, g_for:"외국어시험 합격",
+  g_examOk:n=>`응시 자격 충족 → 이수한 전공과목 중 ${n}과목 응시 (보충과목 제외)`, g_examNo:"아직 충족되지 않은 조건이 있습니다.",
+  g_pass:"종합시험에 합격했습니다 (각 과목 70점 이상)",
+  g_examNote:"※ 학점은 '취득(예정)'이므로 이번 학기 수강 예정 학점을 포함해 입력하면 됩니다. 종합시험은 수료요건이 아니라 <b>논문과정 및 논문면제과정의 졸업요건</b>입니다.",
+  g2:"② 학위논문 제출자격",
+  g2ex:"논문면제과정은 학위논문의 제출과 심사를 거치지 않고 <b>별도의 논문 대체 요건</b>을 충족하는 경우 석사학위를 받을 수 있는 제도입니다. 세부 요건은 소속 학과에 문의하세요.",
+  g2t:"② 학위논문 제출자격 (4월·10월)",
+  g_cm:c=>`${c}학점 취득(예정)자`, g_cd:c=>`${c}학점 취득자`, g_ft:"종합시험 합격",
+  g_th1:"논문지도 1개 학기 이수 또는 이수 중", g_th2:"논문지도 2개 학기 이수", g_ethOk:"'연구윤리와 논문작성법' 이수 또는 이수 중",
+  g_thIng:"논문지도 과목을 이수 중입니다", g_ethIng:"연구윤리와 논문작성법을 이수 중입니다",
+  g_res:"연구실적 60점 이상 충족",
+  g_resChk:"연구실적을 충족했습니다 (박사학위과정 편(입)학일 이후 연구실적 분야별 배정표 기준 60점 이상, 조선대학교 소속 명시)",
+  g_subOk:"제출 자격을 모두 충족했습니다.",
+  g_resNote:"※ 자연·공학·의학 계열은 한국연구재단 등재후보학술지 이상의 학술지에 1편 이상의 연구실적이 있어야 합니다.",
+  limA:"한 학기 최대 이수 학점", limB:"동일 교수 취득 가능 학점", limC:"타학과 교과목 수강 신청 가능 학점",
+  lim_cr:n=>n+"학점", lim_within:n=>n+"학점 이내",
+  privacy:"🔒 체크·입력한 내용은 이 기기의 브라우저에만 저장되며 서버로 전송되지 않습니다. (학과·과정 선택은 다시 열면 처음부터 시작합니다)",
+  btnPrint:"🖨️ 인쇄 / PDF 저장", btnSel:"학과·과정 다시 선택", btnAll:"모든 기록 지우기",
+  confirmAll:"체크와 입력한 학점을 모두 지울까요?",
+  ttlGuide:"📖 자세한 안내", ttlContact:"☎ 문의처",
+  th_div:"구분", th_tel:"전화", ct_admin:"대학원 교학팀 (수료요건·종합시험 등)", ct_lib:"중앙도서관 학술정보운영팀", ct_home:"대학원 홈페이지",
+  footer:"※ 본 페이지는 편의를 위한 요약 안내입니다. <b>최종 기준은 대학원 공식 수료요건 체크리스트와 홈페이지 공지</b>이며, 불확실한 사항은 대학원 교학팀에 문의하세요.",
+  sumEx:" · 논문면제", sumSem:n=>n+"학기", sumSupp:" · 보충과목",
+  guide:[
+   ["🗓 주요 시험·제출 일정", `<ul><li>외국어시험: 3월, 9월</li><li>종합시험: 4월, 10월</li><li>학위논문 제출: 4월, 10월</li></ul><div class="privacy">세부 날짜는 대학원 홈페이지 공지를 확인하세요.</div>`],
+   ["외국어시험 (내국인 기준)", `<ul><li>응시대상: 석사·박사과정 1학기 이상 이수한 재학생</li><li>시험유형: 토익 모의고사 / 합격기준: 60점 이상(100점 만점)</li><li>재응시료 20,000원 (최초 응시자는 응시료 없음)</li></ul>
+     <b>면제 조건</b><ul><li>대학원 운영 대체 강좌 이수: 수강료 120,000원, 성적평가 70점 이상(100점 만점)</li>
+     <li>면제신청서 제출 — 최근 2년 이내 TOEFL(IBT 79점), TOEIC 700점 이상, TEPS 340점 이상, IELTS 5.5등급 이상, TOEIC-Speaking 120점 이상, OPIc IM2 이상 취득</li>
+     <li>면제신청서 제출 — 최근 2년 이내 글로벌언어교육지원팀 강좌 이수: ① 수준별 영어회화 3단계 이상 ② 영어회화 Intensive Course 중급-상 이상 ③ 일대일 또는 맞춤형 강좌가 ① 또는 ②에 준하는 경우</li></ul>
+     <div class="note" id="intlKo">${TOPIK.ko(false)}</div>`],
+   ["종합시험", `<ul><li>학과 주임교수 책임하에 학과에서 자체 실시, 출제위원은 본 대학 전임교원(해당 과목에 전임교원이 없는 경우 예외)</li><li>응시자격: 학점 취득(예정) + 평점평균 3.0 이상 + 외국어시험 합격</li><li>응시과목: 이수한 전공과목 중 석사 3과목, 박사·통합 4과목 (보충과목 제외)</li><li>각 과목 70점 이상 합격(100점 만점)</li><li>불합격 과목 재응시: 1과목당 12,000원 (최초 응시자는 응시료 없음)</li></ul>`],
+   ["학위논문 제출자격 (4월·10월)", `<b>석사</b><ul><li>24학점 취득(예정)자</li><li>외국어시험 및 종합시험 합격자</li><li>논문지도 1개 학기 이수 또는 이수 중인 자</li><li>'연구윤리와 논문작성법'을 이수 또는 이수 중인 자</li><li>평점평균 3.0 이상</li></ul>
+     <b>박사 (석·박사통합은 60학점)</b><ul><li>36학점 취득자</li><li>외국어시험 및 종합시험 합격자</li><li>논문지도 2개 학기를 이수한 자</li><li>'연구윤리와 논문작성법'을 이수 또는 이수 중인 자</li><li>평점평균 3.0 이상</li><li>연구실적을 충족한 자: 박사학위과정 편(입)학일 이후 연구실적 분야별 배정표 기준 60점 이상, 조선대학교 소속을 명시한 실적이어야 하며 자연·공학·의학 계열은 한국연구재단 등재후보학술지 이상 1편 이상</li></ul>`],
+   ["수료연구생 (선택사항)", `<ul><li>각 학위과정 수료자로서 등록을 희망하는 자 (필수 아님), 학기별 신청, 수업료의 3%</li><li>혜택: 사업단 인건비 신청 / 논문작성을 위한 도서관·보건소 이용 / 수료 후 논문지도교수 변경자(지도교수 퇴직 제외)</li></ul>`],
+   ["중앙도서관 이용", `<ul><li>중앙도서관 홈페이지 로그인 → 자료검색 → 전자자료 → 전자저널/학술DB → 국내 또는 국외 선택</li><li>문의: 학술정보운영팀 062-230-7541</li></ul>`]
+  ]
+},
+en:{
+  htmlLang:"en", docTitle:"Graduation Requirements Checklist | Chosun University General Graduate School",
+  hSmall:"Chosun University General Graduate School", hTitle:"Graduation Requirements Checklist",
+  hDesc:"Select your department and degree program to see <b>the course-completion and graduation requirements that apply to you</b>.",
+  basis:d=>"Requirements effective as of "+d,
+  ttlTop:"📌 Please read first",
+  topNotes:[
+    "This checklist is based on the requirements of the <b>General Graduate School</b>.",
+    "<b>Research Ethics and Thesis Writing</b> is required for <b>everyone admitted in or after March 2015</b> (including transfer and re-admitted students).",
+    "Supplementary course credits must be earned <b>in addition to</b> the required credits.",
+    "<b>International students:</b> please check the <b>Korean-language (TOPIK) criteria</b> in the foreign-language exam item and in \"Detailed information\"."
+  ],
+  ttl1:"Search for your department", ttl2:"Select your degree program", ttl3:"Registered semesters · Supplementary courses", ttl4:"My completion & graduation requirements",
+  searchPh:"Type your department name (e.g. Social Welfare)", searchHint:"You can type just part of the name — in English or Korean.",
+  noResult:"No results. Please press <b>\"I can't find my department\"</b> below.",
+  notFoundBtn:"I can't find my department",
+  notFoundMsg:y=>`This department was not found in the department list (${y}).<br>Please contact the <b>Graduate School Office</b>.`,
+  searchAgain:"Search again", change:"Change",
+  runs:s=>`Programs offered: ${s}`,
+  c_master:"Master's Program", c_doctor:"Doctoral Program", c_integ:"Integrated Master's-Doctoral Program",
+  cs_master:"Master's", cs_doctor:"Doctoral", cs_integ:"Integrated",
+  creditSmall:(c,n,m)=>c==="master"?"24 credits (thesis track)":n+" credits",
+  onlyOne:(d,c)=>`${d} offers only the <b>${c}</b>.`,
+  exLabel:"I have switched (or plan to switch) to the thesis-exemption track", exSub:"If you leave this unchecked, the guidance follows the <b>thesis track</b>.",
+  next:"Next ▶",
+  term_base:"Standard", term_short_master:"Accelerated (Bachelor's–Master's linked program)", term_short_integ:"Accelerated (integrated program)", term_short2:"Accelerated (Bachelor's–Master's linked + integrated program)",
+  termTitle:"Registered semesters (standard or accelerated)",
+  termReq:n=>`${n} registered semesters required`,
+  termReqEx:(n,t)=>`${n} registered semesters · ${t} credits in total (thesis exemption + linked program)`,
+  termFixed:(c,n)=>`The ${c} requires <b>${n} registered semesters</b> (no option to choose).`,
+  suppTitle:"Supplementary courses",
+  suppLabel:"I am required to take supplementary courses",
+  suppDesc:s=>`Select only if this applies to you. A supplementary-course item will be added to your checklist. You will be notified by a pop-up when you log in to course registration. (${s})`,
+  supp_master:"6 additional credits of undergraduate courses", supp_other:"9 additional credits of undergraduate or graduate courses",
+  nextCheck:"Next ▶ See my requirements",
+  secA:"🎯 Course-completion requirements", secB:"🎓 Graduation requirements (after completion)", secC:"Credit limits",
+  progAll:"🎉 You have met all course-completion requirements!", progN:(a,b)=>`${a} / ${b} met`,
+  exTag:" · Thesis-exemption track", thTag:" · Thesis track",
+  req:"Required", cond:"If applicable",
+  i_terms:(n,lab)=>`${n} registered semesters completed`+(lab?` (${lab})`:""), i_terms_d:"The number of semesters for which you have completed regular registration.", i_terms_l:"Semesters registered", u_sem:"semesters", u_cr:"credits",
+  i_credExT:t=>`${t} credits (thesis-exemption track)`,
+  i_cred:(c,m)=>`Earn ${c} credits`+(m?" (thesis track)":""), i_cred_d:"Enter the credits you have earned so far; the result is checked automatically. (Excluding supplementary-course credits)", i_cred_l:"Credits earned so far",
+  i_gpa:(min,max)=>`GPA of ${min} or higher (out of ${max})`, i_gpa_d:"Enter your current GPA; the result is checked automatically.", i_gpa_l:"Current GPA",
+  i_eth:"Complete \"Research Ethics and Thesis Writing\"", i_eth_d:"Required for everyone admitted in or after March 2015 (including transfer and re-admitted students). It carries no credits (P/N course) but is a requirement for completion.",
+  i_thesis_master:"Thesis supervision course: 1 time, in the final semester", i_thesis_dr:"Thesis supervision course: 2 times, in the 3rd and 4th semesters",
+  i_thesis_d:"Registration is handled collectively by the Graduate School for the relevant semester. It carries no credits but is a requirement for completion.",
+  i_for:"Pass the foreign-language exam (or have it waived)", i_for_d:six=>`Held in March and September. Passing score: 60 or higher (out of 100). See "Detailed information" below for waivers.<div class="note" style="margin-top:8px">${TOPIK.en(six)}</div>`,
+  i_supp:n=>`${n} additional credits of supplementary courses`, i_supp_d:s=>`${s}. These must be earned <b>in addition to</b> the required credits.`, i_supp_l:"Supplementary credits earned",
+  ex_d:(t,a)=>`You must meet <b>both</b> conditions: ① at least ${t} credits in total, and ② at least ${a} credits earned after switching to the thesis-exemption track. Even if your total exceeds ${t} credits, you cannot complete the program if you are short of ${a} credits after switching. (Excluding supplementary-course credits)<br>※ If you have not switched yet, enter your <b>current credits</b> in "Credits at the time of switching".`,
+  ex_l1:"Total credits earned so far", ex_l2:"Credits at the time of switching",
+  ex_bad:"Credits at the time of switching cannot exceed your current credits. Please check again.",
+  ex_lackAfter:n=>`Your total credits are sufficient, but you are <b>${n} credits</b> short after switching.`,
+  ex_lackTotal:n=>`Your credits after switching are sufficient, but you are <b>${n} credits</b> short in total.`,
+  ex_total:(c,t)=>`At least ${t} credits in total (currently ${c} / ${t})`, ex_after:(a,t)=>`At least ${t} credits after switching (currently ${a} / ${t})`,
+  gpaOver:m=>`Please enter your GPA on a ${m}-point scale.`, stdPrefix:"Required: ",
+  noThesisNote:"The thesis-exemption track does not take the <b>thesis supervision course</b>, so it is excluded from this list.",
+  g1:"① Eligibility for the comprehensive exam (April & October)",
+  g_cred:(c,cur)=>`Earned (or expected to earn) ${c} credits`+(cur!==null?` (entered: ${cur})`:""), g_gpa:m=>`GPA of ${m} or higher`, g_for:"Passed the foreign-language exam",
+  g_examOk:n=>`You are eligible → take ${n} exam subjects from the major courses you completed (excluding supplementary courses)`, g_examNo:"Some conditions are not met yet.",
+  g_pass:"I passed the comprehensive exam (70 or higher in each subject)",
+  g_examNote:"※ Credits are \"earned (or expected)\", so include the credits you are taking this semester. The comprehensive exam is not a course-completion requirement; it is a <b>graduation requirement for the thesis and thesis-exemption tracks</b>.",
+  g2:"② Eligibility to submit the thesis",
+  g2ex:"The thesis-exemption track lets you receive the master's degree by meeting <b>alternative requirements</b> instead of submitting and defending a thesis. Please ask your department for the details.",
+  g2t:"② Eligibility to submit the thesis (April & October)",
+  g_cm:c=>`Earned (or expected to earn) ${c} credits`, g_cd:c=>`Earned ${c} credits`, g_ft:"Passed the comprehensive exam",
+  g_th1:"Completed (or currently taking) 1 semester of thesis supervision", g_th2:"Completed 2 semesters of thesis supervision", g_ethOk:"Completed (or currently taking) \"Research Ethics and Thesis Writing\"",
+  g_thIng:"I am currently taking the thesis supervision course", g_ethIng:"I am currently taking Research Ethics and Thesis Writing",
+  g_res:"Research achievements of 60 points or more",
+  g_resChk:"I have met the research-achievement requirement (60 points or more, based on the Graduate School's point table, for work after your doctoral enrollment/transfer date, with Chosun University affiliation stated)",
+  g_subOk:"You meet all the requirements to submit your thesis.",
+  g_resNote:"※ In natural sciences, engineering and medicine, at least 1 paper in a journal at the level of KCI-candidate (National Research Foundation of Korea) or higher is required.",
+  limA:"Maximum credits per semester", limB:"Maximum credits from the same professor", limC:"Credits allowed from other departments' courses",
+  lim_cr:n=>n+" credits", lim_within:n=>"Up to "+n+" credits",
+  privacy:"🔒 What you check or enter is stored only in this device's browser and is not sent to any server. (Your department and program selections start over each time you reopen the page.)",
+  btnPrint:"🖨️ Print / Save as PDF", btnSel:"Choose department/program again", btnAll:"Clear all saved entries",
+  confirmAll:"Clear all checks and entered credits?",
+  ttlGuide:"📖 Detailed information", ttlContact:"☎ Contact",
+  th_div:"Office", th_tel:"Phone", ct_admin:"Graduate School Office (requirements, comprehensive exam, etc.)", ct_lib:"Central Library, Academic Information Operations Team", ct_home:"Graduate School website",
+  footer:"※ This page is a summary provided for convenience (the English text is a translation). <b>The Korean official checklist and announcements on the Graduate School website are the final authority.</b> If anything is unclear, please contact the Graduate School Office.",
+  sumEx:" · Thesis exemption", sumSem:n=>n+" semesters", sumSupp:" · Supplementary",
+  guide:[
+   ["🗓 Key exam & submission schedule", `<ul><li>Foreign-language exam: March, September</li><li>Comprehensive exam: April, October</li><li>Thesis submission: April, October</li></ul><div class="privacy">Check the Graduate School website for exact dates.</div>`],
+   ["Foreign-language exam (for Korean nationals)", `<ul><li>Eligibility: enrolled Master's/Doctoral students who have completed at least 1 semester</li><li>Format: TOEIC mock test / Passing score: 60 or higher (out of 100)</li><li>Re-take fee: KRW 20,000 (no fee for first-time test takers)</li></ul>
+     <b>Waiver conditions</b><ul><li>Complete the substitute course run by the Graduate School: course fee KRW 120,000, grade of 70 or higher (out of 100)</li>
+     <li>Submit a waiver application — with one of the following obtained within the last 2 years: TOEFL (iBT 79), TOEIC 700 or higher, TEPS 340 or higher, IELTS band 5.5 or higher, TOEIC Speaking 120 or higher, OPIc IM2 or higher</li>
+     <li>Submit a waiver application — with a course completed within the last 2 years at the Global Language Education Support Team: ① Leveled English Conversation Level 3 or higher ② English Conversation Intensive Course, Intermediate-High or higher ③ a one-on-one or customized course equivalent to ① or ②</li></ul>
+     <div class="note">${TOPIK.en(false)}</div>`],
+   ["Comprehensive exam", `<ul><li>Administered by each department under the responsibility of the department chair; exam writers are full-time faculty of the university (exceptions apply where no full-time faculty member covers the subject)</li><li>Eligibility: earned (or expected) credits + GPA of 3.0 or higher + passed the foreign-language exam</li><li>Subjects: from the major courses you completed — 3 subjects for Master's, 4 subjects for Doctoral/Integrated (excluding supplementary courses)</li><li>Pass mark: 70 or higher in each subject (out of 100)</li><li>Re-take of failed subjects: KRW 12,000 per subject (no fee for first-time test takers)</li></ul>`],
+   ["Eligibility to submit the thesis (April & October)", `<b>Master's</b><ul><li>Earned (or expected to earn) 24 credits</li><li>Passed the foreign-language exam and the comprehensive exam</li><li>Completed (or currently taking) 1 semester of thesis supervision</li><li>Completed (or currently taking) "Research Ethics and Thesis Writing"</li><li>GPA of 3.0 or higher</li></ul>
+     <b>Doctoral (60 credits for the Integrated program)</b><ul><li>Earned 36 credits</li><li>Passed the foreign-language exam and the comprehensive exam</li><li>Completed 2 semesters of thesis supervision</li><li>Completed (or currently taking) "Research Ethics and Thesis Writing"</li><li>GPA of 3.0 or higher</li><li>Research achievements: 60 points or more based on the Graduate School's point table, counting work after your doctoral enrollment/transfer date, with Chosun University affiliation stated; in natural sciences, engineering and medicine, at least 1 paper in a KCI-candidate journal or higher</li></ul>`],
+   ["Completion research student (optional)", `<ul><li>For those who have completed a degree program and wish to register (not mandatory); registered per semester; fee is 3% of tuition</li><li>Benefits: apply for project-team stipends / use the library and health center while writing the thesis / for students who changed thesis advisors after completion (excluding cases where the advisor retired)</li></ul>`],
+   ["Using the Central Library", `<ul><li>Log in to the Central Library website → Search → E-resources → E-journals / Academic DB → choose domestic or international</li><li>Contact: Academic Information Operations Team, +82-62-230-7541</li></ul>`]
+  ]
+}};
+
+
+let LANG = "ko";
+try{ const sv=localStorage.getItem(C.langKey); if(sv==="ko"||sv==="en") LANG=sv; }catch(e){}
+const t = (k,...a)=>{ let v=I18N[LANG][k]; if(v===undefined) v=I18N.ko[k]; return typeof v==="function"?v(...a):v; };
+
+/* ====================== 데이터 ====================== */
 const CK_MAP = {m:"master", d:"doctor", i:"integ"};
-const D = C.depts.map(([n,c,e])=>({n, ex:!!e, courses:c.split("").map(x=>CK_MAP[x])}));
+const D = C.depts.map(([n,c,e,en])=>({n, en:en||n, ex:!!e, courses:c.split("").map(x=>CK_MAP[x])}));
+const dn = d => LANG==="en" ? d.en : d.n;
+const dsub = d => LANG==="en" ? d.n : "";               // 영문 모드에서 한글 공식명도 함께 표시
 
 let P = {checked:{}, vals:{}};                                           // 저장되는 값
 let S = {dept:null, notFound:false, course:null, ex:false, term:null, step:1, max:1, q:""}; // 매번 새로 시작하는 선택
 
 function loadP(){ try{ const j=JSON.parse(localStorage.getItem(C.storageKey)); if(j) P=Object.assign(P,j);}catch(e){} }
 function saveP(){ try{ localStorage.setItem(C.storageKey, JSON.stringify(P)); }catch(e){} }
-const normS = s => String(s).replace(/[\s.·ㆍ＊*#()（）\-_,]/g,"").toLowerCase();
-const courseText = d => d.courses.map(c=>C.courses[c].label.replace("과정","")).join(" · ");
+const normS = s => String(s).replace(/[\s.·ㆍ＊*#()（）\-_,'’"/]/g,"").toLowerCase();
+const cName = c => t("c_"+c), cShort = c => t("cs_"+c);
+const courseText = d => d.courses.map(cShort).join(" · ");
+const termLabel = (course,id) => id==="base"?t("term_base"):id==="short2"?t("term_short2"):(course==="master"?t("term_short_master"):t("term_short_integ"));
+const telHref = x => "tel:"+x.replace(/-/g,"");
 
-function init(){
-  loadP();
-  $("basis").textContent = "수료요건 기준일 "+C.basisDate;
-  $("topNote").innerHTML = "<ul style='margin:0;padding-left:18px'>"+C.topNotes.map(t=>`<li>${t}</li>`).join("")+"</ul>";
-  $("contactTbl").innerHTML = `<tr><th>구분</th><th>전화</th></tr>`+C.contacts.map(c=>`<tr><td>${c.name}</td><td><a href="tel:${c.tel.replace(/-/g,'')}">${c.tel}</a></td></tr>`).join("")
-    +`<tr><td>대학원 홈페이지</td><td><a href="${C.homepage}" target="_blank" rel="noopener">grad.chosun.ac.kr</a></td></tr>`;
-  renderGuide(); renderAll();
+function setLang(l){
+  LANG=l; try{ localStorage.setItem(C.langKey,l); }catch(e){}
+  renderAll(); renderStatic();
+}
+
+function init(){ loadP(); renderStatic(); renderAll(); }
+
+/* ====================== 고정 문구 ====================== */
+function renderStatic(){
+  document.documentElement.lang=t("htmlLang"); document.title=t("docTitle");
+  $("lgKo").classList.toggle("on",LANG==="ko"); $("lgEn").classList.toggle("on",LANG==="en");
+  $("hSmall").textContent=t("hSmall"); $("hTitle").textContent=t("hTitle"); $("hDesc").innerHTML=t("hDesc");
+  $("basis").textContent=t("basis",C.basisDate);
+  $("ttlTop").textContent=t("ttlTop");
+  $("topNote").innerHTML="<ul style='margin:0;padding-left:18px'>"+t("topNotes").map(x=>`<li>${x}</li>`).join("")+"</ul>";
+  [1,2,3,4].forEach(n=>$("ttl"+n).textContent=t("ttl"+n));
+  $("secA").textContent=t("secA"); $("secB").textContent=t("secB"); $("secC").textContent=t("secC");
+  $("privacy").textContent=t("privacy");
+  $("btnPrint").textContent=t("btnPrint"); $("btnSel").textContent=t("btnSel"); $("btnAll").textContent=t("btnAll");
+  $("ttlGuide").textContent=t("ttlGuide"); $("ttlContact").textContent=t("ttlContact");
+  $("footer").innerHTML=t("footer");
+  $("contactTbl").innerHTML=`<tr><th>${t("th_div")}</th><th>${t("th_tel")}</th></tr>
+    <tr><td>${t("ct_admin")}</td><td><a href="${telHref(C.tel)}">${C.tel}</a></td></tr>
+    <tr><td>${t("ct_lib")}</td><td><a href="${telHref(C.libTel)}">${C.libTel}</a></td></tr>
+    <tr><td>${t("ct_home")}</td><td><a href="${C.homepage}" target="_blank" rel="noopener">grad.chosun.ac.kr</a></td></tr>`;
+  $("guideBox").innerHTML=t("guide").map(([h,b],i)=>`<details ${i===0?'open':''}><summary>${h}</summary><div class="in">${b}</div></details>`).join("");
 }
 function renderAll(){ renderDeptStep(); renderCourseStep(); renderTermStep(); renderSteps(); renderList(); }
 
@@ -267,7 +506,7 @@ function renderAll(){ renderDeptStep(); renderCourseStep(); renderTermStep(); re
 function go(n){ S.max=Math.max(S.max,n); S.step=n; renderAll(); setTimeout(()=>{ const el=$(["","stepDept","stepCourse","stepTerm","stepList"][n]); if(el&&el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"start"}); },80); }
 function goStep(n){ if(n>S.max) return; S.step=n; renderAll(); }
 function termOpts(){ return S.course? C.terms[S.course] : []; }
-function termObj(){ return termOpts().find(t=>t.id===S.term) || termOpts()[0]; }
+function termObj(){ return termOpts().find(x=>x.id===S.term) || termOpts()[0]; }
 function renderSteps(){
   [[1,"stepDept"],[2,"stepCourse"],[3,"stepTerm"],[4,"stepList"]].forEach(([n,id])=>{
     const el=$(id);
@@ -275,9 +514,9 @@ function renderSteps(){
     el.classList.toggle("locked", n>S.max);
     el.classList.toggle("passed", n<S.max && n!==S.step);
   });
-  $("sum1").textContent = S.dept!=null ? "✔ "+D[S.dept].n : "";
-  $("sum2").textContent = S.max>=3 && S.course ? "✔ "+C.courses[S.course].label+(S.ex?" · 논문면제":"") : "";
-  $("sum3").textContent = S.max>=4 && S.course ? "✔ "+termObj().n+"학기"+(CK("suppOn")?" · 보충과목":"") : "";
+  $("sum1").textContent = S.dept!=null ? "✔ "+dn(D[S.dept]) : "";
+  $("sum2").textContent = S.max>=3 && S.course ? "✔ "+cName(S.course)+(S.ex?t("sumEx"):"") : "";
+  $("sum3").textContent = S.max>=4 && S.course ? "✔ "+t("sumSem",termObj().n)+(CK("suppOn")?t("sumSupp"):"") : "";
   $("sum4").textContent = S.max<4 ? "🔒" : "";
 }
 
@@ -286,31 +525,34 @@ function renderDeptStep(){
   const b=$("deptBody");
   if(S.dept!=null){
     const d=D[S.dept];
-    b.innerHTML=`<div class="chosen">✔ ${d.n}<small>${courseText(d)} 과정 운영</small><button onclick="clearDept()">변경</button></div>`; return;
+    b.innerHTML=`<div class="chosen">✔ ${dn(d)}<small>${dsub(d)?dsub(d)+" · ":""}${t("runs",courseText(d))}</small><button onclick="clearDept()">${t("change")}</button></div>`; return;
   }
   if(S.notFound){
-    b.innerHTML=`<div class="note warn" style="margin-top:0">${C.deptYear} 학과 목록에서 찾을 수 없는 학과입니다.<br>
-      <b>대학원 교학팀</b>에 문의해 주세요.<div style="margin-top:8px"><a class="tel" href="tel:${C.tel.replace(/-/g,'')}">☎ ${C.tel}</a></div></div>
-      <button class="opt nf" onclick="clearDept()">다시 검색하기</button>`; return;
+    b.innerHTML=`<div class="note warn" style="margin-top:0">${t("notFoundMsg",t0(C.deptYear))}
+      <div style="margin-top:8px"><a class="tel" href="${telHref(C.tel)}">☎ ${LANG==="en"?"+82-62-608-5038":C.tel}</a></div></div>
+      <button class="opt nf" onclick="clearDept()">${t("searchAgain")}</button>`; return;
   }
-  b.innerHTML=`<input class="search" id="deptSearch" type="search" placeholder="학과명을 입력하세요 (예: 사회복지)" value="${S.q.replace(/"/g,'&quot;')}" oninput="onSearch(this.value)" autocomplete="off">
+  b.innerHTML=`<input class="search" id="deptSearch" type="search" placeholder="${t("searchPh")}" value="${S.q.replace(/"/g,'&quot;')}" oninput="onSearch(this.value)" autocomplete="off">
     <div class="results" id="results"></div>
-    <button class="opt nf" onclick="pickNotFound()">내 학과가 검색되지 않아요</button>`;
+    <button class="opt nf" onclick="pickNotFound()">${t("notFoundBtn")}</button>`;
   onSearch(S.q);
 }
+const t0 = o => typeof o==="object" ? (o[LANG]||o.ko) : o;
 function onSearch(v){
   S.q=v; const r=$("results"); if(!r) return;
   const q=normS(v);
-  if(!q){ r.innerHTML=`<div class="note" style="margin:0">학과명 일부만 입력해도 됩니다.</div>`; return; }
-  const hit=D.map((d,i)=>({d,i})).filter(x=>normS(x.d.n).includes(q));
-  r.innerHTML = hit.length ? hit.slice(0,15).map(x=>`<button class="res" onclick="pickDept(${x.i})">${x.d.n}<small>${courseText(x.d)} 과정 운영</small></button>`).join("")
-    : `<div class="note warn" style="margin:0">검색 결과가 없습니다. 아래 <b>"내 학과가 검색되지 않아요"</b>를 눌러 주세요.</div>`;
+  if(!q){ r.innerHTML=`<div class="note" style="margin:0">${t("searchHint")}</div>`; return; }
+  const toks=String(v).toLowerCase().split(/\s+/).map(normS).filter(Boolean);
+  const match=(name)=>{ const nn=normS(name); return nn.includes(q) || (toks.length>1 && toks.every(k=>nn.includes(k))); };
+  const hit=D.map((d,i)=>({d,i})).filter(x=>match(x.d.n)||match(x.d.en));
+  r.innerHTML = hit.length ? hit.slice(0,15).map(x=>`<button class="res" onclick="pickDept(${x.i})">${dn(x.d)}<small>${dsub(x.d)?dsub(x.d)+" · ":""}${t("runs",courseText(x.d))}</small></button>`).join("")
+    : `<div class="note warn" style="margin:0">${t("noResult")}</div>`;
 }
 function needExBox(d){ return S.course==="master" && d.ex; }
 function pickDept(i){
   const d=D[i]; S.dept=i; S.notFound=false; S.ex=false; S.term=null;
   S.course = d.courses.length===1 ? d.courses[0] : null;
-  S.max=2; 
+  S.max=2;
   if(S.course && !needExBox(d)) afterCourse(); else go(2);
 }
 function pickNotFound(){ S.notFound=true; renderAll(); }
@@ -321,11 +563,11 @@ function renderCourseStep(){
   const b=$("courseBody");
   if(S.dept==null){ b.innerHTML=""; return; }
   const d=D[S.dept];
-  let h=`<div class="opts">`+d.courses.map(c=>`<button class="opt ${S.course===c?'on':''}" onclick="pickCourse('${c}')">${C.courses[c].label}<small>${c==="master"?"24학점 이수 (논문과정)":C.courses[c].credits+"학점 이수"}</small></button>`).join("")+`</div>`;
-  if(d.courses.length===1) h+=`<div class="note">${d.n}는 <b>${C.courses[d.courses[0]].label}</b>만 운영합니다.</div>`;
+  let h=`<div class="opts">`+d.courses.map(c=>`<button class="opt ${S.course===c?'on':''}" onclick="pickCourse('${c}')">${cName(c)}<small>${t("creditSmall",c,C.courses[c].credits)}</small></button>`).join("")+`</div>`;
+  if(d.courses.length===1) h+=`<div class="note">${t("onlyOne",dn(d),cName(d.courses[0]))}</div>`;
   if(needExBox(d)){
-    h+=`<label class="flag ${S.ex?'on':''}"><input type="checkbox" ${S.ex?'checked':''} onchange="toggleEx(this.checked)"><span><b>논문면제과정으로 전환했습니다 (전환 예정 포함)</b><small>선택하지 않으면 <b>논문과정</b> 기준으로 안내합니다.</small></span></label>
-         <button class="nextbtn" onclick="afterCourse()">다음 ▶</button>`;
+    h+=`<label class="flag ${S.ex?'on':''}"><input type="checkbox" ${S.ex?'checked':''} onchange="toggleEx(this.checked)"><span><b>${t("exLabel")}</b><small>${t("exSub")}</small></span></label>
+         <button class="nextbtn" onclick="afterCourse()">${t("next")}</button>`;
   }
   b.innerHTML=h;
 }
@@ -339,23 +581,23 @@ function afterCourse(){
   S.term = termOpts().length>1 ? null : "base"; go(3);
 }
 
-/* ---------- 3단계: 정규 등록 학기 ---------- */
+/* ---------- 3단계: 정규 등록 학기 · 보충과목 ---------- */
+function suppText(){ return S.course==="master"?t("supp_master"):t("supp_other"); }
 function renderTermStep(){
   const b=$("termBody");
   if(!S.course){ b.innerHTML=""; return; }
-  const c=C.courses[S.course];
   let h="";
   if(termOpts().length>1){
-    h+=`<div class="sub3" style="margin-top:0">정규 등록 학기 (단축 여부)</div><div class="opts col">`+termOpts().map(t=>{
-      const sub = (S.course==="master"&&S.ex&&t.id==="short") ? `${t.n}학기 등록 · 총 ${C.exempt.total}학점 이수 (논문면제 + 학·석사연계)` : `${t.n}학기 등록 필요`;
-      return `<button class="opt ${S.term===t.id?'on':''}" onclick="pickTerm('${t.id}')">${t.label}<small>${sub}</small></button>`;
+    h+=`<div class="sub3" style="margin-top:0">${t("termTitle")}</div><div class="opts col">`+termOpts().map(o=>{
+      const sub = (S.course==="master"&&S.ex&&o.id==="short") ? t("termReqEx",o.n,C.exempt.total) : t("termReq",o.n);
+      return `<button class="opt ${S.term===o.id?'on':''}" onclick="pickTerm('${o.id}')">${termLabel(S.course,o.id)}<small>${sub}</small></button>`;
     }).join("")+`</div>`;
   }else{
-    h+=`<div class="note" style="margin-top:0">${c.label}은 선택 없이 <b>${termOpts()[0].n}학기</b> 등록이 필요합니다.</div>`;
+    h+=`<div class="note" style="margin-top:0">${t("termFixed",cName(S.course),termOpts()[0].n)}</div>`;
   }
-  h+=`<div class="sub3">보충과목 이수대상자</div>
-    <label class="flag ${CK('suppOn')?'on':''}" style="margin-top:0"><input type="checkbox" ${CK('suppOn')?'checked':''} onchange="toggleSupp(this.checked)"><span><b>보충과목 이수 대상자입니다</b><small>대상자만 선택하세요. 선택하면 체크리스트에 보충과목 항목이 추가됩니다. 수강신청 화면 접속 시 팝업창으로 안내됩니다. (${c.supp})</small></span></label>
-    <button class="nextbtn" ${S.term?'':'disabled'} onclick="go(4)">다음 ▶ 내 수료요건 확인하기</button>`;
+  h+=`<div class="sub3">${t("suppTitle")}</div>
+    <label class="flag ${CK('suppOn')?'on':''}" style="margin-top:0"><input type="checkbox" ${CK('suppOn')?'checked':''} onchange="toggleSupp(this.checked)"><span><b>${t("suppLabel")}</b><small>${t("suppDesc",suppText())}</small></span></label>
+    <button class="nextbtn" ${S.term?'':'disabled'} onclick="go(4)">${t("nextCheck")}</button>`;
   b.innerHTML=h;
 }
 function pickTerm(id){ S.term=id; renderAll(); }
@@ -375,18 +617,19 @@ function exemptState(){
   const afterOK = after!==null && after>=C.exempt.after;
   return {cur,base,after,totalOK,afterOK,baseBad,done:totalOK&&afterOK};
 }
-const ln = (ok,t,bad) => `<div class="ln ${ok?'y':(bad?'bad':'')}"><span>${ok?'✔':(bad?'⚠':'○')}</span><span>${t}</span></div>`;
+const ln = (ok,x,bad) => `<div class="ln ${ok?'y':(bad?'bad':'')}"><span>${ok?'✔':(bad?'⚠':'○')}</span><span>${x}</span></div>`;
 
 function buildItems(){
   const c=C.courses[S.course], it=[];
-  it.push({id:"terms",type:"num",req:termObj().n,unit:"학기",title:`정규 등록 ${termObj().n}학기 충족`+(S.term!=="base"&&termOpts().length>1?` (${termObj().label})`:""),desc:"정규 학기로 등록을 마친 학기 수입니다.",label:"등록한 학기 수"});
-  if(isEx()) it.push({id:"credit",type:"exempt",title:`이수학점 ${C.exempt.total}학점 (논문면제과정)`});
-  else it.push({id:"credit",type:"num",req:c.credits,unit:"학점",title:`이수학점 ${c.credits}학점 취득`+(S.course==="master"?" (논문과정)":""),desc:"현재까지 취득한 학점을 입력하면 자동으로 확인됩니다. (보충과목 학점 제외)",label:"현재 취득 학점"});
-  it.push({id:"gpa",type:"gpa",title:`평점평균 ${C.gpaMin.toFixed(1)} 이상 충족 (${C.gpaMax} 만점)`,desc:"현재 평점평균을 입력하면 자동으로 확인됩니다.",label:"현재 평점평균"});
-  it.push({id:"ethics",type:"check",title:"연구윤리와 논문작성법 이수",desc:"2015. 3. 이후 입학자(편입학·재입학 포함) 모두 해당. 학점 미포함(P/N 과목)이며 수료요건입니다."});
-  if(!isEx()) it.push({id:"thesis",type:"check",title:c.thesis,desc:"이수 대상 학기에 대학원에서 일괄 수강신청합니다. 학점 미포함 과목이며 수료요건입니다."});
-  it.push({id:"foreign",type:"check",title:"외국어시험 합격 (또는 면제 인정)",desc:"3월·9월 시행. 합격기준 60점 이상(100점 만점). 면제 조건은 아래 '자세한 안내'를 확인하세요."});
-  if(CK("suppOn")) it.push({id:"supp",type:"num",req:c.suppN,unit:"학점",cond:true,title:`보충과목 ${c.suppN}학점 추가 이수`,desc:`${c.supp}. 이수학점과 <b>별도</b>로 이수합니다.`,label:"보충과목 이수 학점"});
+  const lab = (S.term!=="base"&&termOpts().length>1) ? termLabel(S.course,S.term) : "";
+  it.push({id:"terms",type:"num",req:termObj().n,unit:t("u_sem"),title:t("i_terms",termObj().n,lab),desc:t("i_terms_d"),label:t("i_terms_l")});
+  if(isEx()) it.push({id:"credit",type:"exempt",title:t("i_credExT",C.exempt.total)});
+  else it.push({id:"credit",type:"num",req:c.credits,unit:t("u_cr"),title:t("i_cred",c.credits,S.course==="master"),desc:t("i_cred_d"),label:t("i_cred_l")});
+  it.push({id:"gpa",type:"gpa",title:t("i_gpa",C.gpaMin.toFixed(1),C.gpaMax),desc:t("i_gpa_d"),label:t("i_gpa_l")});
+  it.push({id:"ethics",type:"check",title:t("i_eth"),desc:t("i_eth_d")});
+  if(!isEx()) it.push({id:"thesis",type:"check",title:S.course==="master"?t("i_thesis_master"):t("i_thesis_dr"),desc:t("i_thesis_d")});
+  it.push({id:"foreign",type:"check",title:t("i_for"),desc:t("i_for_d",isSix())});
+  if(CK("suppOn")) it.push({id:"supp",type:"num",req:c.suppN,unit:t("u_cr"),cond:true,title:t("i_supp",c.suppN),desc:t("i_supp_d",suppText()),label:t("i_supp_l")});
   return it;
 }
 function itemDone(x){
@@ -399,36 +642,36 @@ function inputHtml(id,label,unit,step,max,val){
   return `<div class="inp"><span>${label}</span><input type="number" inputmode="decimal" min="0" max="${max}" step="${step}" value="${val===null?'':val}" onchange="setVal('${id}',this.value)"> <span>${unit}</span></div>`;
 }
 function renderList(){
-  if(S.max<4||!S.course){ $("listBox").innerHTML=""; $("gradBox").innerHTML=""; return; }
+  if(S.max<4||!S.course){ $("listBox").innerHTML=""; $("gradBox").innerHTML=""; $("summary").innerHTML=""; $("limBox").innerHTML=""; return; }
   const c=C.courses[S.course], items=buildItems();
-  $("summary").innerHTML=`${S.dept!=null?D[S.dept].n+" · ":""}<b>${c.label}</b>${isEx()?" · 논문면제과정":(S.course==="master"?" · 논문과정":"")}`;
+  $("summary").innerHTML=`${S.dept!=null?dn(D[S.dept])+" · ":""}<b>${cName(S.course)}</b>${isEx()?t("exTag"):(S.course==="master"?t("thTag"):"")}`;
   const done=items.filter(itemDone).length, pct=Math.round(done/items.length*100);
   $("progBar").style.width=pct+"%"; $("progPct").textContent=pct+"%";
-  $("progLabel").textContent = done===items.length ? "🎉 수료요건을 모두 충족했습니다!" : `${done} / ${items.length} 충족`;
+  $("progLabel").textContent = done===items.length ? t("progAll") : t("progN",done,items.length);
   $("listBox").innerHTML = items.map(x=>{
-    const d=itemDone(x), tag=x.cond?`<span class="tag cond">해당자</span>`:`<span class="tag">필수</span>`;
+    const d=itemDone(x), tag=x.cond?`<span class="tag cond">${t("cond")}</span>`:`<span class="tag">${t("req")}</span>`;
     if(x.type==="check") return `<label class="item clickable ${d?'done':''}"><input type="checkbox" ${d?'checked':''} onchange="setCheck('${x.id}',this.checked)"><div><div class="t">${x.title}${tag}</div><div class="d">${x.desc}</div></div></label>`;
     if(x.type==="exempt"){
       const s=exemptState();
-      let msg=""; if(s.baseBad) msg=ln(false,"전환 시점 취득학점이 현재 취득학점보다 클 수 없습니다. 다시 확인해 주세요.",true);
+      let msg=""; if(s.baseBad) msg=ln(false,t("ex_bad"),true);
       else if(s.cur!==null&&s.base!==null&&!s.done){
-        if(s.totalOK&&!s.afterOK) msg=ln(false,`총 학점은 충족했지만 전환 후 학점이 <b>${C.exempt.after-s.after}학점</b> 부족합니다.`,true);
-        else if(!s.totalOK&&s.afterOK) msg=ln(false,`전환 후 학점은 충족했지만 총 학점이 <b>${C.exempt.total-s.cur}학점</b> 부족합니다.`,true);
+        if(s.totalOK&&!s.afterOK) msg=ln(false,t("ex_lackAfter",C.exempt.after-s.after),true);
+        else if(!s.totalOK&&s.afterOK) msg=ln(false,t("ex_lackTotal",C.exempt.total-s.cur),true);
       }
       return `<div class="item ${d?'done':''}"><div class="mark">${d?'✓':''}</div><div style="flex:1"><div class="t">${x.title}${tag}</div>
-        <div class="d">두 조건을 <b>모두</b> 충족해야 합니다. ① 총 ${C.exempt.total}학점 이상 ② 논문면제 전환 시점부터 ${C.exempt.after}학점 이상. 총 학점이 ${C.exempt.total}학점을 넘어도 전환 후 ${C.exempt.after}학점이 모자라면 수료할 수 없습니다. (보충과목 학점 제외)<br>※ 아직 전환 전이라면 '전환 시점 취득학점'에 <b>현재 학점</b>을 그대로 입력하세요.</div>
-        ${inputHtml("credit","현재 총 취득학점","학점","1","200",s.cur)}${inputHtml("base","전환 시점 취득학점","학점","1","200",s.base)}
-        <div style="margin-top:8px">${s.cur===null?"":ln(s.totalOK,`총 ${C.exempt.total}학점 이상 (현재 ${s.cur} / ${C.exempt.total})`)}
-        ${s.after===null?"":ln(s.afterOK,`전환 후 ${C.exempt.after}학점 이상 (현재 ${s.after} / ${C.exempt.after})`)}${msg}</div></div></div>`;
+        <div class="d">${t("ex_d",C.exempt.total,C.exempt.after)}</div>
+        ${inputHtml("credit",t("ex_l1"),t("u_cr"),"1","200",s.cur)}${inputHtml("base",t("ex_l2"),t("u_cr"),"1","200",s.base)}
+        <div style="margin-top:8px">${s.cur===null?"":ln(s.totalOK,t("ex_total",s.cur,C.exempt.total))}
+        ${s.after===null?"":ln(s.afterOK,t("ex_after",s.after,C.exempt.after))}${msg}</div></div></div>`;
     }
     const v=V(x.id), isG=x.type==="gpa";
     const bad = isG && v!==null && (v>C.gpaMax||v<0);
     return `<div class="item ${d?'done':''}"><div class="mark">${d?'✓':''}</div><div style="flex:1"><div class="t">${x.title}${tag}</div><div class="d">${x.desc}</div>
       ${inputHtml(x.id,x.label,isG?"":x.unit,isG?"0.01":"1",isG?C.gpaMax:"200",v)}
-      <div style="margin-top:4px">${bad?ln(false,`${C.gpaMax} 만점 기준으로 입력해 주세요.`,true):(v!==null?`<b>${isG?v:v+" / "+x.req+x.unit}</b>`:`<span class="d">(기준 ${isG?C.gpaMin.toFixed(1):x.req+x.unit})</span>`)}</div></div></div>`;
-  }).join("") + (isEx()?`<div class="note">논문면제과정은 <b>논문지도 과목</b>을 이수하지 않으므로 항목에서 제외했습니다.</div>`:"");
+      <div style="margin-top:4px">${bad?ln(false,t("gpaOver",C.gpaMax),true):(v!==null?`<b>${isG?v:v+" / "+x.req+" "+x.unit}</b>`:`<span class="d">(${t("stdPrefix")}${isG?C.gpaMin.toFixed(1):x.req+" "+x.unit})</span>`)}</div></div></div>`;
+  }).join("") + (isEx()?`<div class="note">${t("noThesisNote")}</div>`:"");
   renderGrad();
-  $("limBox").innerHTML=`<div>한 학기 최대 이수 학점<b>9학점</b></div><div>동일 교수 취득 가능 학점<b>${c.limitSame}학점</b></div><div>타학과 교과목 수강 신청 가능 학점<b>${c.limitOther}</b></div>`;
+  $("limBox").innerHTML=`<div>${t("limA")}<b>${t("lim_cr",9)}</b></div><div>${t("limB")}<b>${t("lim_cr",c.limitSame)}</b></div><div>${t("limC")}<b>${t("lim_within",c.limitOtherN)}</b></div>`;
 }
 function setCheck(id,v){ P.checked[K(id)]=v; saveP(); renderList(); }
 function setVal(id,v){ P.vals[K(id)]=v; saveP(); renderList(); }
@@ -437,54 +680,38 @@ function setVal(id,v){ P.vals[K(id)]=v; saveP(); renderList(); }
 function chkHtml(id,text){ return `<label class="chk"><input type="checkbox" ${CK(id)?'checked':''} onchange="setCheck('${id}',this.checked)"><span>${text}</span></label>`; }
 function renderGrad(){
   const c=C.courses[S.course], cur=V("credit"), credOK=cur!==null&&cur>=c.credits, g=gpaOK(), fo=CK("foreign");
+  const gm=C.gpaMin.toFixed(1);
   const examOK=credOK&&g&&fo, passed=CK("examPass");
-  let h=`<div class="box"><h3>① 종합시험 응시 자격 (4월·10월 시행)</h3>
-    ${ln(credOK,`${c.credits}학점 취득(예정)자${cur!==null?` (입력 ${cur}학점)`:""}`)}${ln(g,`평점평균 ${C.gpaMin.toFixed(1)} 이상`)}${ln(fo,"외국어시험 합격")}
-    <div class="res2 ${examOK?'y':'n'}">${examOK?`응시 자격 충족 → 이수한 전공과목 중 ${c.examSubjects}과목 응시 (보충과목 제외)`:"아직 충족되지 않은 조건이 있습니다."}</div>
-    ${chkHtml("examPass","종합시험에 합격했습니다 (각 과목 70점 이상)")}
-    <div class="privacy">※ 학점은 '취득(예정)'이므로 이번 학기 수강 예정 학점을 포함해 입력하면 됩니다. 종합시험은 수료요건이 아니라 <b>논문과정 및 논문면제과정의 졸업요건</b>입니다.</div></div>`;
+  let h=`<div class="box"><h3>${t("g1")}</h3>
+    ${ln(credOK,t("g_cred",c.credits,cur))}${ln(g,t("g_gpa",gm))}${ln(fo,t("g_for"))}
+    <div class="res2 ${examOK?'y':'n'}">${examOK?t("g_examOk",c.examSubjects):t("g_examNo")}</div>
+    ${chkHtml("examPass",t("g_pass"))}
+    <div class="privacy">${t("g_examNote")}</div></div>`;
   if(isEx()){
-    h+=`<div class="box"><h3>② 학위논문 제출자격</h3><div class="note" style="margin-top:0">논문면제과정은 학위논문의 제출과 심사를 거치지 않고 <b>별도의 논문 대체 요건</b>을 충족하는 경우 석사학위를 받을 수 있는 제도입니다. 세부 요건은 소속 학과에 문의하세요.</div></div>`;
+    h+=`<div class="box"><h3>${t("g2")}</h3><div class="note" style="margin-top:0">${t("g2ex")}</div></div>`;
   }else{
     const master=S.course==="master";
     const thesisOK = CK("thesis")||(master&&CK("thesisIng")), ethOK = CK("ethics")||CK("ethicsIng");
     const rows=[
-      ln(credOK, master?`${c.credits}학점 취득(예정)자`:`${c.credits}학점 취득자`),
-      ln(fo,"외국어시험 합격"), ln(passed,"종합시험 합격"),
-      ln(thesisOK, master?"논문지도 1개 학기 이수 또는 이수 중":"논문지도 2개 학기 이수"),
-      ln(ethOK,"'연구윤리와 논문작성법' 이수 또는 이수 중"), ln(g,`평점평균 ${C.gpaMin.toFixed(1)} 이상`)
+      ln(credOK, master?t("g_cm",c.credits):t("g_cd",c.credits)),
+      ln(fo,t("g_for")), ln(passed,t("g_ft")),
+      ln(thesisOK, master?t("g_th1"):t("g_th2")),
+      ln(ethOK,t("g_ethOk")), ln(g,t("g_gpa",gm))
     ];
     let extra="";
-    if(master&&!CK("thesis")) extra+=chkHtml("thesisIng","논문지도 과목을 이수 중입니다");
-    if(!CK("ethics")) extra+=chkHtml("ethicsIng","연구윤리와 논문작성법을 이수 중입니다");
+    if(master&&!CK("thesis")) extra+=chkHtml("thesisIng",t("g_thIng"));
+    if(!CK("ethics")) extra+=chkHtml("ethicsIng",t("g_ethIng"));
     let research=true;
-    if(!master){ research=CK("research"); rows.push(ln(research,"연구실적 60점 이상 충족")); extra+=chkHtml("research","연구실적을 충족했습니다 (박사학위과정 편(입)학일 이후 연구실적 분야별 배정표 기준 60점 이상, 조선대학교 소속 명시)"); }
+    if(!master){ research=CK("research"); rows.push(ln(research,t("g_res"))); extra+=chkHtml("research",t("g_resChk")); }
     const all=credOK&&fo&&passed&&thesisOK&&ethOK&&g&&research;
-    h+=`<div class="box"><h3>② 학위논문 제출자격 (4월·10월)</h3>${rows.join("")}<div class="res2 ${all?'y':'n'}">${all?"제출 자격을 모두 충족했습니다.":"아직 충족되지 않은 조건이 있습니다."}</div>${extra}
-      ${master?"":`<div class="privacy">※ 자연·공학·의학 계열은 한국연구재단 등재후보학술지 이상의 학술지에 1편 이상의 연구실적이 있어야 합니다.</div>`}</div>`;
+    h+=`<div class="box"><h3>${t("g2t")}</h3>${rows.join("")}<div class="res2 ${all?'y':'n'}">${all?t("g_subOk"):t("g_examNo")}</div>${extra}
+      ${master?"":`<div class="privacy">${t("g_resNote")}</div>`}</div>`;
   }
   $("gradBox").innerHTML=h;
 }
 
-/* ---------- 자세한 안내 ---------- */
-function renderGuide(){
-  const g=[
-   ["🗓 주요 시험·제출 일정", `<ul><li>외국어시험: 3월, 9월</li><li>종합시험: 4월, 10월</li><li>학위논문 제출: 4월, 10월</li></ul><div class="privacy">세부 날짜는 대학원 홈페이지 공지를 확인하세요.</div>`],
-   ["외국어시험 (내국인 기준)", `<ul><li>응시대상: 석사·박사과정 1학기 이상 이수한 재학생</li><li>시험유형: 토익 모의고사 / 합격기준: 60점 이상(100점 만점)</li><li>재응시료 20,000원 (최초 응시자는 응시료 없음)</li></ul>
-     <b>면제 조건</b><ul><li>대학원 운영 대체 강좌 이수: 수강료 120,000원, 성적평가 70점 이상(100점 만점)</li>
-     <li>면제신청서 제출 — 최근 2년 이내 TOEFL(IBT 79점), TOEIC 700점 이상, TEPS 340점 이상, IELTS 5.5등급 이상, TOEIC-Speaking 120점 이상, OPIc IM2 이상 취득</li>
-     <li>면제신청서 제출 — 최근 2년 이내 글로벌언어교육지원팀 강좌 이수: ① 수준별 영어회화 3단계 이상 ② 영어회화 Intensive Course 중급-상 이상 ③ 일대일 또는 맞춤형 강좌가 ① 또는 ②에 준하는 경우</li></ul>`],
-   ["종합시험", `<ul><li>학과 주임교수 책임하에 학과에서 자체 실시, 출제위원은 본 대학 전임교원(해당 과목에 전임교원이 없는 경우 예외)</li><li>응시자격: 학점 취득(예정) + 평점평균 3.0 이상 + 외국어시험 합격</li><li>응시과목: 이수한 전공과목 중 석사 3과목, 박사·통합 4과목 (보충과목 제외)</li><li>각 과목 70점 이상 합격(100점 만점)</li><li>불합격 과목 재응시: 1과목당 12,000원 (최초 응시자는 응시료 없음)</li></ul>`],
-   ["학위논문 제출자격 (4월·10월)", `<b>석사</b><ul><li>24학점 취득(예정)자</li><li>외국어시험 및 종합시험 합격자</li><li>논문지도 1개 학기 이수 또는 이수 중인 자</li><li>'연구윤리와 논문작성법'을 이수 또는 이수 중인 자</li><li>평점평균 3.0 이상</li></ul>
-     <b>박사 (석·박사통합은 60학점)</b><ul><li>36학점 취득자</li><li>외국어시험 및 종합시험 합격자</li><li>논문지도 2개 학기를 이수한 자</li><li>'연구윤리와 논문작성법'을 이수 또는 이수 중인 자</li><li>평점평균 3.0 이상</li><li>연구실적을 충족한 자: 박사학위과정 편(입)학일 이후 연구실적 분야별 배정표 기준 60점 이상, 조선대학교 소속을 명시한 실적이어야 하며 자연·공학·의학 계열은 한국연구재단 등재후보학술지 이상 1편 이상</li></ul>`],
-   ["수료연구생 (선택사항)", `<ul><li>각 학위과정 수료자로서 등록을 희망하는 자 (필수 아님), 학기별 신청, 수업료의 3%</li><li>혜택: 사업단 인건비 신청 / 논문작성을 위한 도서관·보건소 이용 / 수료 후 논문지도교수 변경자(지도교수 퇴직 제외)</li></ul>`],
-   ["중앙도서관 이용", `<ul><li>중앙도서관 홈페이지 로그인 → 자료검색 → 전자자료 → 전자저널/학술DB → 국내 또는 국외 선택</li><li>문의: 학술정보운영팀 062-230-7541</li></ul>`]
-  ];
-  $("guideBox").innerHTML=g.map(([t,b],i)=>`<details ${i===0?'open':''}><summary>${t}</summary><div class="in">${b}</div></details>`).join("");
-}
-
 function resetSel(){ S={dept:null,notFound:false,course:null,ex:false,term:null,step:1,max:1,q:""}; renderAll(); window.scrollTo({top:0,behavior:"smooth"}); }
-function resetAll(){ if(!confirm("체크와 입력한 학점을 모두 지울까요?")) return; P={checked:{},vals:{}}; saveP(); resetSel(); }
+function resetAll(){ if(!confirm(t("confirmAll"))) return; P={checked:{},vals:{}}; saveP(); resetSel(); }
 
 init();
 </script>
